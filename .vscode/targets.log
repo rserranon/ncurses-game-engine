@@ -1,0 +1,412 @@
+make all --print-data-base --no-builtin-variables --no-builtin-rules --question
+# GNU Make 3.81
+# Copyright (C) 2006  Free Software Foundation, Inc.
+# This is free software; see the source for copying conditions.
+# There is NO warranty; not even for MERCHANTABILITY or FITNESS FOR A
+# PARTICULAR PURPOSE.
+
+# This program built for i386-apple-darwin11.3.0
+ 
+
+# Make data base, printed on Wed Aug 10 13:57:27 2022
+
+# Variables
+
+# automatic
+<D = $(patsubst %/,%,$(dir $<))
+# automatic
+?F = $(notdir $?)
+# environment
+ELECTRON_NO_ATTACH_CONSOLE = 1
+# environment
+LC_CTYPE = UTF-8
+# environment
+NVM_INC = /Users/robert/.nvm/versions/node/v14.17.3/include/node
+# automatic
+?D = $(patsubst %/,%,$(dir $?))
+# automatic
+@D = $(patsubst %/,%,$(dir $@))
+# makefile (from `Makefile', line 15)
+EXE = $(PACKAGE)
+# automatic
+@F = $(notdir $@)
+# makefile
+CURDIR := /Users/robert/development/c++/ncurses-game-engine
+# makefile
+SHELL = /bin/sh
+# environment
+VSCODE_NLS_CONFIG = {"locale":"en-us","availableLanguages":{},"_languagePackSupport":true}
+# environment
+_ = /usr/bin/make
+# makefile (from `Makefile', line 1)
+MAKEFILE_LIST :=  Makefile
+# makefile (from `Makefile', line 17)
+CXXFLAGS = $(CDEBUG) -c -g -Wno-reorder -std=c++11 -Wall -pedantic -Wno-long-long -O0 -ggdb
+# environment
+__CFBundleIdentifier = com.microsoft.VSCode
+# environment
+INFOPATH = /opt/homebrew/share/info:
+# makefile (from `Makefile', line 16)
+CDEBUG = -O0
+# makefile (from `Makefile', line 12)
+PACKAGE = game-demo
+# environment
+VSCODE_CWD = /Users/robert/development/c++/ncurses-game-engine
+# environment
+PATH = /Users/robert/.nvm/versions/node/v14.17.3/bin:/Users/robert/Library/Python/3.8/bin:/opt/homebrew/bin:/opt/homebrew/sbin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Users/robert/.cargo/bin:/Users/robert/.fzf/bin
+# makefile (from `Makefile', line 23)
+CXXFILES = $(shell find . -type f -name '*.cpp')
+# environment
+LSCOLORS = Gxfxcxdxbxegedabagacad
+# environment
+NVM_BIN = /Users/robert/.nvm/versions/node/v14.17.3/bin
+# environment
+LaunchInstanceID = BACA24FA-E535-4A3D-92EE-3AA591B4263F
+# environment
+ELECTRON_RUN_AS_NODE = 1
+# makefile (from `Makefile', line 18)
+LDFLAGS = -lmenu -lncurses
+# default
+.FEATURES := target-specific order-only second-expansion else-if archives jobserver check-symlink
+# environment
+SSH_AUTH_SOCK = /private/tmp/com.apple.launchd.jjNQJtpWbz/Listeners
+# automatic
+%F = $(notdir $%)
+# environment
+SQLITE_EXEMPT_PATH_FROM_VNODE_GUARDS = /Users/robert/Library/WebKit/Databases
+# environment
+PWD = /Users/robert/development/c++/ncurses-game-engine
+# makefile (from `Makefile', line 32)
+MUTE = @
+# environment
+HOMEBREW_CELLAR = /opt/homebrew/Cellar
+# environment
+ORIGINAL_XDG_CURRENT_DESKTOP = undefined
+# makefile (from `Makefile', line 20)
+LIBSDIR = 
+# environment
+MANPATH = /Users/robert/.nvm/versions/node/v14.17.3/share/man:/opt/homebrew/share/man::
+# environment
+VSCODE_AMD_ENTRYPOINT = vs/workbench/api/node/extensionHostProcess
+# environment
+HOME = /Users/robert
+# default
+MAKEFILEPATH = $(shell /usr/bin/xcode-select -print-path 2>/dev/null || echo /Developer)/Makefiles
+# environment
+VSCODE_CLI = 1
+# environment
+VSCODE_CODE_CACHE_PATH = /Users/robert/Library/Application Support/Code/CachedData/da76f93349a72022ca4670c1b84860304616aaa2
+# environment
+LOGNAME = robert
+# environment
+APPLICATION_INSIGHTS_NO_DIAGNOSTIC_CHANNEL = 1
+# environment
+NVM_CD_FLAGS = -q
+# environment
+ZSH = /Users/robert/.oh-my-zsh
+# environment
+VSCODE_HANDLES_UNCAUGHT_ERRORS = true
+# automatic
+^D = $(patsubst %/,%,$(dir $^))
+# environment
+XPC_FLAGS = 0x0
+# environment
+COLORTERM = truecolor
+# default
+MAKE = $(MAKE_COMMAND)
+# environment
+LC_TERMINAL = iTerm2
+# environment
+SHLVL = 3
+# default
+MAKE_VERSION := 3.81
+# environment
+USER = robert
+# makefile
+.DEFAULT_GOAL := compile
+# default
+MAKECMDGOALS := all
+# environment
+TERM_SESSION_ID = w0t1p0:0B0F71F2-F24E-4E43-BE6D-01EDC30A850E
+# makefile (from `Makefile', line 19)
+INCLUDESDIR = -I"src/"
+# environment
+LESS = -R
+# automatic
+%D = $(patsubst %/,%,$(dir $%))
+# default
+MAKE_COMMAND := /Library/Developer/CommandLineTools/usr/bin/make
+# environment
+TERM_PROGRAM = iTerm.app
+# default
+.VARIABLES := 
+# environment
+TMPDIR = /var/folders/dm/y81m2jm566lcd943x_y5mjsw0000gn/T/
+# automatic
+*F = $(notdir $*)
+# environment
+VSCODE_IPC_HOOK = /Users/robert/Library/Application Support/Code/1.70.0-main.sock
+# environment
+MallocNanoZone = 0
+# makefile
+MAKEFLAGS = Rrqp
+# environment
+MFLAGS = -Rrqp
+# automatic
+*D = $(patsubst %/,%,$(dir $*))
+# environment
+TERM_PROGRAM_VERSION = 3.4.16
+# environment
+NVM_DIR = /Users/robert/.nvm
+# environment
+XPC_SERVICE_NAME = application.com.microsoft.VSCode.17016893.17016899.0C0AFFFB-DDEB-4E4B-8035-3394892A1962
+# environment
+LC_TERMINAL_VERSION = 3.4.16
+# environment
+HOMEBREW_PREFIX = /opt/homebrew
+# automatic
++D = $(patsubst %/,%,$(dir $+))
+# automatic
++F = $(notdir $+)
+# environment
+ITERM_SESSION_ID = w0t1p0:0B0F71F2-F24E-4E43-BE6D-01EDC30A850E
+# environment
+HOMEBREW_REPOSITORY = /opt/homebrew
+# environment
+COLORFGBG = 15;0
+# environment
+__CF_USER_TEXT_ENCODING = 0x1F5:0x0:0x0
+# environment
+COMMAND_MODE = unix2003
+# default
+MAKEFILES := 
+# automatic
+<F = $(notdir $<)
+# environment
+ITERM_PROFILE = Default
+# environment
+PAGER = less
+# environment
+LC_ALL = C
+# environment
+SECURITYSESSIONID = 186b8
+# automatic
+^F = $(notdir $^)
+# default
+SUFFIXES := 
+# default
+.INCLUDE_DIRS = /usr/local/include
+# environment
+MAKELEVEL := 0
+# makefile (from `Makefile', line 24)
+OBJECTS = $(CXXFILES:.cpp=.o)
+# environment
+GPG_TTY = /dev/ttys002
+# environment
+LANG = C
+# environment
+TERM = xterm-256color
+# environment
+VSCODE_PID = 30357
+# variable set hash-table stats:
+# Load=98/1024=10%, Rehash=0, Collisions=4/133=3%
+
+# Pattern-specific Variable Values
+
+# No pattern-specific variable values.
+
+# Directories
+
+# . (device 16777229, inode 17392260): 15 files, no impossibilities.
+
+# 15 files, no impossibilities in 1 directories.
+
+# Implicit Rules
+
+%.o: %.cpp
+#  commands to execute (from `Makefile', line 48):
+	# Compiling $<...
+	$(MUTE)$(CXX) $(CXXFLAGS) $(CDEBUG) $< -c -o $@  $(INCLUDESDIR)
+	
+
+# 1 implicit rules, 0 (0.0%) terminal.
+
+# Files
+
+all: compile doc
+#  Command-line target.
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has been updated.
+#  Needs to be updated (-q is set).
+# variable set hash-table stats:
+# Load=0/32=0%, Rehash=0, Collisions=0/2=0%
+#  commands to execute (from `Makefile', line 40):
+	# Build executable and socumentation successful!
+	
+
+# Not a target:
+game-demo.cpp:
+#  Implicit rule search has been done.
+#  Last modified 2022-08-10 13:47:13
+#  File has been updated.
+#  Successfully updated.
+# variable set hash-table stats:
+# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
+
+ncurses-game-engine.o: ncurses-game-engine.cpp
+#  Implicit rule search has been done.
+#  Implicit/static pattern stem: `ncurses-game-engine'
+#  Last modified 2022-08-10 13:47:18
+#  File has been updated.
+#  Successfully updated.
+# variable set hash-table stats:
+# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
+#  commands to execute (from `Makefile', line 48):
+	# Compiling $<...
+	$(MUTE)$(CXX) $(CXXFLAGS) $(CDEBUG) $< -c -o $@  $(INCLUDESDIR)
+	
+
+# Not a target:
+.SUFFIXES:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+Makefile:
+#  Implicit rule search has been done.
+#  Last modified 2022-08-09 11:13:38
+#  File has been updated.
+#  Successfully updated.
+# variable set hash-table stats:
+# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
+
+docclean:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  commands to execute (from `Makefile', line 62):
+	# Cleaning documentation...
+	-$(MUTE)rm $(VTAG) -rf doc
+	
+
+game-demo: ncurses-game-engine.o game-demo.o
+#  Implicit rule search has not been done.
+#  Last modified 2022-08-10 13:47:18
+#  File has been updated.
+#  Successfully updated.
+# variable set hash-table stats:
+# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
+#  commands to execute (from `Makefile', line 44):
+	# Linking...
+	$(MUTE)$(CXX) $(OBJECTS) -o $(EXE) $(LIBSDIR) $(LDFLAGS)
+	
+
+compile: game-demo
+#  Implicit rule search has not been done.
+#  Implicit/static pattern stem: `'
+#  File does not exist.
+#  File has been updated.
+#  Needs to be updated (-q is set).
+# automatic
+# @ := compile
+# automatic
+# % := 
+# automatic
+# * := 
+# automatic
+# + := game-demo
+# automatic
+# | := 
+# automatic
+# < := game-demo
+# automatic
+# ^ := game-demo
+# automatic
+# ? := game-demo
+# variable set hash-table stats:
+ 
+# Load=8/32=25%, Rehash=0, Collisions=1/10=10%
+#  commands to execute (from `Makefile', line 36):
+	# Build successful!
+	
+
+# Not a target:
+.DEFAULT:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+run: compile
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  commands to execute (from `Makefile', line 53):
+	# Running...
+	$(MUTE)./$(EXE)
+	
+
+clean:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  commands to execute (from `Makefile', line 66):
+	# Cleaning object files...
+	$(MUTE)rm $(VTAG) -f $(OBJECTS)
+	$(MUTE)rm $(VTAG) -f $(EXE)
+	
+
+# Not a target:
+ncurses-game-engine.cpp:
+#  Implicit rule search has been done.
+#  Last modified 2022-08-10 13:46:23
+#  File has been updated.
+#  Successfully updated.
+# variable set hash-table stats:
+# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
+
+game-demo.o: game-demo.cpp
+#  Implicit rule search has been done.
+#  Implicit/static pattern stem: `game-demo'
+#  Last modified 2022-08-10 13:47:18
+#  File has been updated.
+#  Successfully updated.
+# variable set hash-table stats:
+# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
+#  commands to execute (from `Makefile', line 48):
+	# Compiling $<...
+	$(MUTE)$(CXX) $(CXXFLAGS) $(CDEBUG) $< -c -o $@  $(INCLUDESDIR)
+	
+
+clean-all: clean docclean
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+doc:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  commands to execute (from `Makefile', line 57):
+	# Generating documentation...
+	mkdir doc
+	$(MUTE)doxygen Doxyfile
+	
+
+# files hash-table stats:
+# Load=15/1024=1%, Rehash=0, Collisions=2/43=5%
+# VPATH Search Paths
+
+# No `vpath' search paths.
+
+# No general (`VPATH' variable) search path.
+
+# # of strings in strcache: 1
+# # of strcache buffers: 1
+# strcache size: total = 4096 / max = 4096 / min = 4096 / avg = 4096
+# strcache free: total = 4087 / max = 4087 / min = 4087 / avg = 4087
+
+# Finished Make data base on Wed Aug 10 13:57:27 2022
+
+ 

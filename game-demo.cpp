@@ -3,8 +3,15 @@
 
 int main()
 {
-  int i = 0;
-  std::cout << i << std::endl;
   std::cout << "Example game using ncurses-game-engine\n";
-  return 0;
+
+  ConsoleGameEngine game(1,1,20,14, true, "Nada");
+
+  game.print_str("hello world", 1, 1);
+
+  game.DisplayFrame();
+
+  std::cout << "End of game";
+
+  return game.m_nProgramStatus;
 }

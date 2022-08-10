@@ -1,0 +1,12 @@
+make --dry-run --always-make --keep-going --print-directory
+make: Entering directory `/Users/robert/development/c++/ncurses-game-engine'
+# Compiling ncurses-game-engine.cpp...
+c++ -O0 -c -g -Wno-reorder -std=c++11 -Wall -pedantic -Wno-long-long -O0 -ggdb -O0 ncurses-game-engine.cpp -c -o ncurses-game-engine.o  -I"src/"
+# Compiling game-demo.cpp...
+c++ -O0 -c -g -Wno-reorder -std=c++11 -Wall -pedantic -Wno-long-long -O0 -ggdb -O0 game-demo.cpp -c -o game-demo.o  -I"src/"
+ 
+# Linking...
+c++ ./ncurses-game-engine.o ./game-demo.o -o game-demo  -lmenu -lncurses
+# Build successful!
+make: Leaving directory `/Users/robert/development/c++/ncurses-game-engine'
+ 

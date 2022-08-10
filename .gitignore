@@ -1,3 +1,5 @@
 *.o
+*.dSYM
 doc
 game-demo
+ncurses-game-engine
