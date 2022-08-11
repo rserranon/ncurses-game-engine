@@ -1,17 +1,34 @@
 #include <iostream>
 #include "ncurses-game-engine.h"
 
+class GameDemo: public ConsoleGameEngine
+{
+  public:
+
+    GameDemo()
+    {
+      m_sAppName = "Game Demo";
+    }
+};
+
+
 int main()
 {
   std::cout << "Example game using ncurses-game-engine\n";
 
-  ConsoleGameEngine game(1,1,20,14, true, "Nada");
+  int status = 0;
+  ConsoleGameEngine game;
 
-  game.print_str("hello world", 1, 1);
+  status = game.ConstructConsole(1,1,20,14, true, "Nada");
 
-  game.DisplayFrame();
+  if (status != 0)
+  {
+    game.print_str("hello world", 1, 1);
 
-  std::cout << "End of game";
+    game.DisplayFrame();
 
-  return game.m_nProgramStatus;
+    std::cout << "End of game";
+  }
+
+  return status;
 }

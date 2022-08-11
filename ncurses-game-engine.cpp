@@ -1,6 +1,7 @@
 #include "ncurses-game-engine.h"
 #include <cstdlib>
 #include <cstring>
+#include <string>
 #include <cassert>
 #include <ncurses.h>
 #include <iostream>
@@ -8,10 +9,16 @@
 #include <cstdlib>
 #include <assert.h>
 #include <stdexcept>
+#include <string>
 
-  ConsoleGameEngine::ConsoleGameEngine(int x, int y, int width, int height, bool border, std::string label)
+ConsoleGameEngine::ConsoleGameEngine()
+{
+
+}
+
+int ConsoleGameEngine::ConstructConsole(int x, int y, int width, int height, bool border, std::string label)
   {
-    m_nProgramStatus = EXIT_SUCCESS;
+    this->m_bBorder = border;
     WINDOW *console;
     int lnConsoleX = 0;
     int lnConsoleY = 0;
@@ -21,35 +28,36 @@
     if (!console ) {
       endwin();
       std::cout << "Error initializing nCurses \n";
-      m_nProgramStatus = EXIT_FAILURE;
-      return;
+      return 1;
     }
     printw("ConsoleY:%d , ", lnConsoleY);
     printw("ConsoleX:%d", lnConsoleX);
     if ( width > lnConsoleX ) {
       endwin();
       std::cout << "Error Console game is larger in (x,y) than Terminal or y or y are larger than height, width \n";
-      // throw std::invalid_argument( "received negative value" );
-      m_nProgramStatus = EXIT_FAILURE;
-      return;
+      return 1;
     }
     m_nScreenWidth  = width;
     m_nScreenHeight = height;
-    m_pwindow = subwin(console, m_nScreenHeight, m_nScreenWidth, y, x);
-    if (!m_pwindow) {
+    m_pWindow = subwin(console, m_nScreenHeight, m_nScreenWidth, y, x);
+    if (!m_pWindow) {
       endwin();
       std::cout << "Error creating main window \n";
-      m_nProgramStatus = EXIT_FAILURE;
-      return;
+      return  1;
     }
     if (border)
-      wborder(m_pwindow,0,0,0,0,0,0,0,0);
+      wborder(m_pWindow,0,0,0,0,0,0,0,0);
 
-    m_bufferScreen = new CHAR_INFO[m_nScreenWidth * m_nScreenHeight];
-    memset(m_bufferScreen, 0, sizeof(CHAR_INFO) * m_nScreenWidth * m_nScreenHeight);
+    std::string title = ("["+label+"]");
+    int y_tit = (int)(m_nScreenWidth / 2 - title.length()/2);
+    mvwaddstr(m_pWindow, 0, y_tit, title.c_str());
+
+    m_pBufferScreen = new CHAR_INFO[m_nScreenWidth * m_nScreenHeight];
+    memset(m_pBufferScreen, ' ', sizeof(CHAR_INFO) * m_nScreenWidth * m_nScreenHeight);
 
     refresh();
     getch();
+    return 0;
   }
 
   void ConsoleGameEngine::Draw(int x, int y, short c = 0x2588, short col = 0x000F)
@@ -62,13 +70,21 @@
 
   void ConsoleGameEngine::DisplayFrame()
   {
-    for (int y = 0; y < m_nScreenHeight; y++)
-      for (int x = 0; x < m_nScreenWidth; x++)
+    int coords_offset = 0;
+    int limits_offset = 0;
+    if (m_bBorder) {
+      coords_offset = 1;
+      limits_offset = -1;
+    }
+    for (int y = 0 + coords_offset; y < m_nScreenHeight + limits_offset; y++)
+      for (int x = 0 + coords_offset; x < m_nScreenWidth + limits_offset; x++)
       {
-        mvwaddch(m_pwindow, y, x, m_bufferScreen[y * m_nScreenWidth + x].utf8char);
+        mvwaddch(m_pWindow, y, x, m_pBufferScreen[y * m_nScreenWidth + x].utf8char);
       }
+
+    wrefresh(m_pWindow);
+
     /////////////////// quitar de aqui
-    wrefresh(m_pwindow);
     getch();
     ///////////////
   }
@@ -77,7 +93,7 @@
   {
     CHAR_INFO *ptr;
 
-    ptr = m_bufferScreen + ( y * m_nScreenWidth + x);
+    ptr = m_pBufferScreen + ( y * m_nScreenWidth + x);
 
       for (int i = 0; i < str.length(); i++ ) {
         ptr->utf8char = str[i];
@@ -87,7 +103,7 @@
 
   ConsoleGameEngine::~ConsoleGameEngine()
   {
-    delete [] m_bufferScreen;
+    delete [] m_pBufferScreen;
     endwin();
   }
 

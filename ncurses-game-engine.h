@@ -9,7 +9,9 @@ typedef struct _CHAR_INFO {
 class ConsoleGameEngine
 {
 public:
-  ConsoleGameEngine(int x, int y, int width, int height, bool border, std::string label);
+  ConsoleGameEngine();
+
+  int ConstructConsole(int x, int y, int width, int height, bool border, std::string label);
 
   virtual ~ConsoleGameEngine();
 
@@ -23,8 +25,10 @@ public:
 
 
   protected:
-    WINDOW *m_pwindow = nullptr;
-    CHAR_INFO *m_bufferScreen = nullptr;
+    std::string   m_sAppName;
+    WINDOW *m_pWindow = nullptr;
+    bool m_bBorder = true;
+    CHAR_INFO *m_pBufferScreen = nullptr;
     int m_nScreenWidth;
     int m_nScreenHeight;
 };
