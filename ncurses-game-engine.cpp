@@ -10,6 +10,7 @@
 #include <assert.h>
 #include <stdexcept>
 #include <string>
+#include <thread>
 
 ConsoleGameEngine::ConsoleGameEngine()
 {
@@ -101,9 +102,26 @@ int ConsoleGameEngine::ConstructConsole(int x, int y, int width, int height, boo
       }
   }
 
+  void ConsoleGameEngine::Start()
+  {
+    m_bAtomicActive = true;
+    std::thread t = std::thread(&ConsoleGameEngine::GameThread, this);
+
+    t.join();
+  }
+
   ConsoleGameEngine::~ConsoleGameEngine()
   {
     delete [] m_pBufferScreen;
     endwin();
   }
+
+  void ConsoleGameEngine::GameThread()
+  {
+
+  }
+
+std::atomic<bool> ConsoleGameEngine::m_bAtomicActive(false);
+std::condition_variable ConsoleGameEngine::m_cvGameFinished;
+std::mutex ConsoleGameEngine::m_muxGame;
 

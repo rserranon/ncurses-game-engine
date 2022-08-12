@@ -1,5 +1,9 @@
+#include <mutex>
 #include <ncurses.h>
 #include <string>
+#include <thread>
+#include <atomic>
+#include <condition_variable>
 
 typedef struct _CHAR_INFO {
   uint8_t  utf8char;
@@ -21,14 +25,23 @@ public:
 
   void DisplayFrame();
 
+  void Start();
+
   int m_nProgramStatus;
 
 
-  protected:
+protected:
     std::string   m_sAppName;
     WINDOW *m_pWindow = nullptr;
     bool m_bBorder = true;
     CHAR_INFO *m_pBufferScreen = nullptr;
     int m_nScreenWidth;
     int m_nScreenHeight;
+
+    static std::atomic<bool> m_bAtomicActive;
+    static std::condition_variable m_cvGameFinished;
+	  static std::mutex m_muxGame;
+private:
+    void GameThread();
 };
+
