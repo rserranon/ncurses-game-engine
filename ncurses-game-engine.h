@@ -21,6 +21,7 @@ public:
 
   virtual void Draw(int x, int y, short c , short col );
 
+
   void print_str(std::string, int x, int y);
 
   void DisplayFrame();
@@ -35,12 +36,16 @@ protected:
     WINDOW *m_pWindow = nullptr;
     bool m_bBorder = true;
     CHAR_INFO *m_pBufferScreen = nullptr;
-    int m_nScreenWidth;
-    int m_nScreenHeight;
+    int   m_nScreenWidth;
+    int   m_nScreenHeight;
+    int   m_nKeyPressed;
 
     static std::atomic<bool> m_bAtomicActive;
     static std::condition_variable m_cvGameFinished;
 	  static std::mutex m_muxGame;
+
+    virtual bool OnUserUpdate() = 0;
+
 private:
     void GameThread();
 };

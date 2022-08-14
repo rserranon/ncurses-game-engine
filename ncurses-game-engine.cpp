@@ -2,15 +2,15 @@
 #include <cstdlib>
 #include <cstring>
 #include <string>
-#include <cassert>
+#include <sstream>
+#include <chrono>
 #include <ncurses.h>
 #include <iostream>
 #include <cstring>
 #include <cstdlib>
-#include <assert.h>
-#include <stdexcept>
 #include <string>
 #include <thread>
+#include <iomanip>
 
 ConsoleGameEngine::ConsoleGameEngine()
 {
@@ -24,6 +24,7 @@ int ConsoleGameEngine::ConstructConsole(int x, int y, int width, int height, boo
     int lnConsoleX = 0;
     int lnConsoleY = 0;
     console = initscr();
+    noecho();
     border(0,0,0,0,0,0,0,0);
     getmaxyx(console, lnConsoleY, lnConsoleX);
     if (!console ) {
@@ -50,14 +51,13 @@ int ConsoleGameEngine::ConstructConsole(int x, int y, int width, int height, boo
       wborder(m_pWindow,0,0,0,0,0,0,0,0);
 
     std::string title = ("["+label+"]");
-    int y_tit = (int)(m_nScreenWidth / 2 - title.length()/2);
-    mvwaddstr(m_pWindow, 0, y_tit, title.c_str());
+    int x_tit = (int)(m_nScreenWidth / 2 - title.length()/2);
+    mvwaddstr(m_pWindow, 0, x_tit, title.c_str());
 
     m_pBufferScreen = new CHAR_INFO[m_nScreenWidth * m_nScreenHeight];
     memset(m_pBufferScreen, ' ', sizeof(CHAR_INFO) * m_nScreenWidth * m_nScreenHeight);
 
     refresh();
-    getch();
     return 0;
   }
 
@@ -84,10 +84,6 @@ int ConsoleGameEngine::ConstructConsole(int x, int y, int width, int height, boo
       }
 
     wrefresh(m_pWindow);
-
-    /////////////////// quitar de aqui
-    getch();
-    ///////////////
   }
 
   void ConsoleGameEngine::print_str(std::string str, int x, int y)
@@ -118,7 +114,42 @@ int ConsoleGameEngine::ConstructConsole(int x, int y, int width, int height, boo
 
   void ConsoleGameEngine::GameThread()
   {
+    auto tp1 = std::chrono::system_clock::now();
+    auto tp2 = std::chrono::system_clock::now();
 
+    keypad(m_pWindow, TRUE);
+    while (m_bAtomicActive)
+    {
+      tp2 = std::chrono::system_clock::now();
+      std::chrono::duration<float> elapsedTime = tp2 - tp1;
+      tp1 = tp2;
+      float fElapsedTime = elapsedTime.count();
+
+      // INPUT ==========================================================
+      nodelay(m_pWindow,TRUE);
+      m_nKeyPressed = wgetch(m_pWindow);
+      // KEY_MAX es el valor mas alto (0633) de KEY definido en ncurses.h
+
+      // Game logic =====================================================
+      switch(m_nKeyPressed){
+          case 'q':
+              m_bAtomicActive = false;
+              break;
+      }
+
+      std::stringstream ss;
+      ss << "[FPS:";
+      ss.width(10);
+      ss << (int)(1.0f / fElapsedTime) << "]";
+
+      int x_tit = (int)(m_nScreenWidth / 2 - ss.str().length()/2);
+      mvwaddstr(m_pWindow, m_nScreenHeight-1, x_tit, ss.str().c_str());
+
+      if (!OnUserUpdate())   // if userUpdate fails
+        m_bAtomicActive = false;
+
+      this->DisplayFrame();
+    }
   }
 
 std::atomic<bool> ConsoleGameEngine::m_bAtomicActive(false);
