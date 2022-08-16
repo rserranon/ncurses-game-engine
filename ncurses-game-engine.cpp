@@ -32,6 +32,16 @@ int ConsoleGameEngine::ConstructConsole(int x, int y, int width, int height, boo
       std::cout << "Error initializing nCurses \n";
       return 1;
     }
+    if (!has_colors()){
+        puts("Cannot do colors");
+        return -1;
+    }
+    if (start_color() != OK)
+    {
+        endwin();
+        puts("Unable to start colors");
+        return -1;
+    }
     printw("ConsoleY:%d , ", lnConsoleY);
     printw("ConsoleX:%d", lnConsoleX);
     if ( width > lnConsoleX ) {
@@ -61,11 +71,11 @@ int ConsoleGameEngine::ConstructConsole(int x, int y, int width, int height, boo
     return 0;
   }
 
-  void ConsoleGameEngine::Draw(int x, int y, short c = 0x2588, short col = 0x000F)
+  void ConsoleGameEngine::Draw(int x, int y, short c, short col)
   {
     if ( x >= 0 && x <= m_nScreenWidth && y >= 0 && y <= m_nScreenHeight)
     {
-
+      m_pBufferScreen[ y * m_nScreenWidth + x ].utf8char = c;
     }
   }
 

@@ -48,7 +48,7 @@ int main()
   if (status == 0)
   {
     game.print_str("hello world", 1, 1);
-
+    game.Draw(7, 8, 'x');
     game.Start();
 
     std::cout << "End of game";

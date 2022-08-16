@@ -6,32 +6,32 @@
 #include <condition_variable>
 
 typedef struct _CHAR_INFO {
-  uint8_t  utf8char;
+  char  utf8char;
   int  Attributes;
 } CHAR_INFO;
 
 class ConsoleGameEngine
 {
-public:
-  ConsoleGameEngine();
+  public:
+    ConsoleGameEngine();
 
-  int ConstructConsole(int x, int y, int width, int height, bool border, std::string label);
+    int ConstructConsole(int x, int y, int width, int height, bool border, std::string label);
 
-  virtual ~ConsoleGameEngine();
+    virtual ~ConsoleGameEngine();
 
-  virtual void Draw(int x, int y, short c , short col );
-
-
-  void print_str(std::string, int x, int y);
-
-  void DisplayFrame();
-
-  void Start();
-
-  int m_nProgramStatus;
+    virtual void Draw(int x, int y, short c = 0x2588, short col = 0x000F);
 
 
-protected:
+    void print_str(std::string, int x, int y);
+
+    void DisplayFrame();
+
+    void Start();
+
+    int m_nProgramStatus;
+
+
+  protected:
     std::string   m_sAppName;
     WINDOW *m_pWindow = nullptr;
     bool m_bBorder = true;
@@ -46,7 +46,7 @@ protected:
 
     virtual bool OnUserUpdate() = 0;
 
-private:
+  private:
     void GameThread();
 };
 
