@@ -9,12 +9,12 @@ using Ncurses library.
 #Instructions
 
 NCURSES-GAME-ENGINE MAKEFILE
- make all        Builds the package + documentation
- make run        Builds and runs the program
- make clean      Cleans results of building process (objects end executable)
- make doc        Generates the documentation with doxygen
- make docclean   Removes the documentation
- make clean-all  Cleans documentation and results of build process
+- make all        Builds the package + documentation
+- make run        Builds and runs the program
+- make clean      Cleans results of building process (objects end executable)
+- make doc        Generates the documentation with doxygen
+- make docclean   Removes the documentation
+- make clean-all  Cleans documentation and results of build process
 
 
 
