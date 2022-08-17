@@ -1,3 +1,4 @@
+#define _XOPEN_SOURCE_EXTENDED 1 // Activate wide char functionality
 #include <mutex>
 #include <ncurses.h>
 #include <string>
@@ -5,9 +6,19 @@
 #include <atomic>
 #include <condition_variable>
 
+
+enum ColourPairs
+	{
+		PAIR_RED_BLACK = 1,
+		PAIR_YELLOW_BLACK,
+		PAIR_BLUE_BLACK,
+		PAIR_GREEN_BLACK,
+		PAIR_WHITE_BLACK,
+	};
+
 typedef struct _CHAR_INFO {
-  char  utf8char;
-  int  Attributes;
+  wchar_t   utf8char;
+  int       Attributes;
 } CHAR_INFO;
 
 class ConsoleGameEngine
@@ -19,10 +30,10 @@ class ConsoleGameEngine
 
     virtual ~ConsoleGameEngine();
 
-    virtual void Draw(int x, int y, short c = 0x2588, short col = 0x000F);
+    virtual void Draw(int y, int x, wchar_t wc = 0x2588, int color = PAIR_WHITE_BLACK);
 
 
-    void print_str(std::string, int x, int y);
+    void print_str(std::string, int x, int y, int color = PAIR_WHITE_BLACK);
 
     void DisplayFrame();
 
@@ -33,12 +44,12 @@ class ConsoleGameEngine
 
   protected:
     std::string   m_sAppName;
-    WINDOW *m_pWindow = nullptr;
-    bool m_bBorder = true;
-    CHAR_INFO *m_pBufferScreen = nullptr;
-    int   m_nScreenWidth;
-    int   m_nScreenHeight;
-    int   m_nKeyPressed;
+    WINDOW        *m_pWindow = nullptr;
+    bool          m_bBorder = true;
+    CHAR_INFO     *m_pBufferScreen = nullptr;
+    int           m_nScreenWidth;
+    int           m_nScreenHeight;
+    int           m_nKeyPressed;
 
     static std::atomic<bool> m_bAtomicActive;
     static std::condition_variable m_cvGameFinished;

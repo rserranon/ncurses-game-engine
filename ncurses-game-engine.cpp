@@ -11,26 +11,32 @@
 #include <string>
 #include <thread>
 #include <iomanip>
+#include <locale.h>
+
+
 
 ConsoleGameEngine::ConsoleGameEngine()
 {
-
 }
 
 int ConsoleGameEngine::ConstructConsole(int x, int y, int width, int height, bool border, std::string label)
   {
-    this->m_bBorder = border;
+    setlocale(LC_ALL, "");
+    m_bBorder = border;
     WINDOW *console;
     int lnConsoleX = 0;
     int lnConsoleY = 0;
+
+
     console = initscr();
     noecho();
+    curs_set(0);
     border(0,0,0,0,0,0,0,0);
     getmaxyx(console, lnConsoleY, lnConsoleX);
     if (!console ) {
       endwin();
       std::cout << "Error initializing nCurses \n";
-      return 1;
+      return -1;
     }
     if (!has_colors()){
         puts("Cannot do colors");
@@ -42,12 +48,19 @@ int ConsoleGameEngine::ConstructConsole(int x, int y, int width, int height, boo
         puts("Unable to start colors");
         return -1;
     }
-    printw("ConsoleY:%d , ", lnConsoleY);
-    printw("ConsoleX:%d", lnConsoleX);
+    init_pair(PAIR_RED_BLACK, COLOR_RED, COLOR_BLACK);
+		init_pair(PAIR_YELLOW_BLACK, COLOR_YELLOW, COLOR_BLACK);
+		init_pair(PAIR_BLUE_BLACK, COLOR_BLUE, COLOR_BLACK);
+		init_pair(PAIR_GREEN_BLACK, COLOR_GREEN, COLOR_BLACK);
+		init_pair(PAIR_WHITE_BLACK, COLOR_WHITE, COLOR_BLACK);
+
+    move(0,3);
+    printw("[ConsoleY:%d , ", lnConsoleY);
+    printw("ConsoleX:%d]", lnConsoleX);
     if ( width > lnConsoleX ) {
       endwin();
       std::cout << "Error Console game is larger in (x,y) than Terminal or y or y are larger than height, width \n";
-      return 1;
+      return -1;
     }
     m_nScreenWidth  = width;
     m_nScreenHeight = height;
@@ -55,7 +68,7 @@ int ConsoleGameEngine::ConstructConsole(int x, int y, int width, int height, boo
     if (!m_pWindow) {
       endwin();
       std::cout << "Error creating main window \n";
-      return  1;
+      return  -1;
     }
     if (border)
       wborder(m_pWindow,0,0,0,0,0,0,0,0);
@@ -71,11 +84,13 @@ int ConsoleGameEngine::ConstructConsole(int x, int y, int width, int height, boo
     return 0;
   }
 
-  void ConsoleGameEngine::Draw(int x, int y, short c, short col)
+  void ConsoleGameEngine::Draw(int y, int x, wchar_t wc, int color)
   {
+
     if ( x >= 0 && x <= m_nScreenWidth && y >= 0 && y <= m_nScreenHeight)
     {
-      m_pBufferScreen[ y * m_nScreenWidth + x ].utf8char = c;
+      m_pBufferScreen[ y * m_nScreenWidth + x ].utf8char = wc;
+      m_pBufferScreen[ y * m_nScreenWidth + x ].Attributes = color;
     }
   }
 
@@ -88,15 +103,19 @@ int ConsoleGameEngine::ConstructConsole(int x, int y, int width, int height, boo
       limits_offset = -1;
     }
     for (int y = 0 + coords_offset; y < m_nScreenHeight + limits_offset; y++)
-      for (int x = 0 + coords_offset; x < m_nScreenWidth + limits_offset; x++)
-      {
-        mvwaddch(m_pWindow, y, x, m_pBufferScreen[y * m_nScreenWidth + x].utf8char);
+      for (int x = 0 + coords_offset; x < m_nScreenWidth + limits_offset; x++) {
+        wattrset(m_pWindow, COLOR_PAIR(m_pBufferScreen[y * m_nScreenWidth + x].Attributes));
+        cchar_t c = {
+          A_NORMAL,
+          {m_pBufferScreen[y * m_nScreenWidth + x].utf8char}
+        };
+        mvwadd_wch(m_pWindow, y, x, &c);
+        wattrset(m_pWindow, COLOR_PAIR(PAIR_WHITE_BLACK));
       }
-
     wrefresh(m_pWindow);
   }
 
-  void ConsoleGameEngine::print_str(std::string str, int x, int y)
+  void ConsoleGameEngine::print_str(std::string str, int x, int y, int color)
   {
     CHAR_INFO *ptr;
 
@@ -104,6 +123,7 @@ int ConsoleGameEngine::ConstructConsole(int x, int y, int width, int height, boo
 
       for (int i = 0; i < str.length(); i++ ) {
         ptr->utf8char = str[i];
+        ptr->Attributes = color;
         ptr++;
       }
   }
@@ -138,7 +158,6 @@ int ConsoleGameEngine::ConstructConsole(int x, int y, int width, int height, boo
       // INPUT ==========================================================
       nodelay(m_pWindow,TRUE);
       m_nKeyPressed = wgetch(m_pWindow);
-      // KEY_MAX es el valor mas alto (0633) de KEY definido en ncurses.h
 
       // Game logic =====================================================
       switch(m_nKeyPressed){

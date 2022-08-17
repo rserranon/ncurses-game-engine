@@ -47,8 +47,12 @@ int main()
 
   if (status == 0)
   {
-    game.print_str("hello world", 1, 1);
-    game.Draw(7, 8, 'x');
+    game.print_str("hello world", 1, 1, PAIR_YELLOW_BLACK);
+    game.Draw(6, 2);
+
+    game.Draw( 7, 2, 0x2665,   PAIR_BLUE_BLACK );
+    game.Draw( 8, 2, 0x2588,   PAIR_GREEN_BLACK );
+    game.Draw( 9, 2, L'\u2665', PAIR_RED_BLACK );
     game.Start();
 
     std::cout << "End of game";
