@@ -46,8 +46,9 @@ $(EXE): $(OBJECTS)
 
 %.o: %.cpp
 	# Compiling $<...
-	$(MUTE)$(CXX) $(CXXFLAGS) $(CDEBUG) $< -c -o $@  $(INCLUDESDIR)
+	$(MUTE)$(CXX) $(CXXFLAGS) $(CDEBUG) $< -c -MD -o $@  $(INCLUDESDIR)
 
+-include *.d
 
 run: compile
 	# Running...
