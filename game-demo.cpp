@@ -13,7 +13,9 @@ class GameDemo: public ConsoleGameEngine
 
   protected:
 
-    bool OnUserUpdate()
+    bool OnUserCreate() { return true; }
+
+    bool OnUserUpdate(float fElapsedTime)
     {
       print_str(std::to_string(m_nKeyPressed), 6, 6);
       switch (m_nKeyPressed)
