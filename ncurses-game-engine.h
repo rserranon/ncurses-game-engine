@@ -2,6 +2,7 @@
 #include <mutex>
 #include <ncurses.h>
 #include <string>
+#include <list>
 #include <thread>
 #include <atomic>
 #include <condition_variable>
@@ -15,14 +16,21 @@ enum ColourPairs
 		PAIR_BLUE_BLACK,
 		PAIR_GREEN_BLACK,
 		PAIR_WHITE_BLACK,
-    PAIR_GRAY_BLACK,
-    PAIR_CYAN_BLACK
+        PAIR_GRAY_BLACK,
+        PAIR_CYAN_BLACK,
+        PAIR_BLACK_WHITE
 	};
 
 typedef struct _CHAR_INFO {
   wchar_t   utf8char;
   int       Attributes;
 } CHAR_INFO;
+
+struct InputNode {
+    int         x;
+    int         y;
+    std::string str;
+};
 
 class ConsoleGameEngine
 {
@@ -41,6 +49,10 @@ class ConsoleGameEngine
 
     void print_str(std::string, int x, int y, int color = PAIR_WHITE_BLACK);
 
+    void InputString(int x, int y, std::string, int color = PAIR_WHITE_BLACK);
+
+    void StartInput();
+    void ControlInput();
     void DisplayFrame();
 
     void Start();
@@ -57,9 +69,12 @@ class ConsoleGameEngine
     int           m_nScreenHeight;
     int           m_nKeyPressed;
 
-    static std::atomic<bool> m_bAtomicActive;
-    static std::condition_variable m_cvGameFinished;
-	  static std::mutex m_muxGame;
+    std::list<InputNode>            m_input_list;
+    std::list<InputNode>::iterator  m_it;
+
+    static std::atomic<bool>        m_bAtomicActive;
+    static std::condition_variable  m_cvGameFinished;
+	static std::mutex               m_muxGame;
 
     virtual bool OnUserCreate() = 0;
     virtual bool OnUserUpdate(float fElapsedTime) = 0;
