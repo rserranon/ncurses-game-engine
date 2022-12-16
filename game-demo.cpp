@@ -21,10 +21,9 @@ class GameDemo: public ConsoleGameEngine
       if (m_nKeyPressed == KEY_STAB || m_nKeyPressed == KEY_ENTER || m_nKeyPressed == KEY_DOWN)
           print_str(std::to_string(m_nKeyPressed), 6, 6);
       print_str(std::to_string(m_nKeyPressed), 6, 6);
-      // sleep(5);
       switch (m_nKeyPressed)
       {
-        case KEY_ENTER:
+        case 10:
           print_str("KEY_ENTER ", 5, 5);
           break;
         case 9:
@@ -55,7 +54,13 @@ int main()
   int status = 0;
   GameDemo game;
 
-  status = game.ConstructConsole(1,1,50,34, true, "Titulo");
+  status = game.ConstructConsole(1,1,40,30, true, "Titulo");
+
+  std::string str1 {"Hola"};
+  std::string str2 {"hoy"};
+  std::string str3 {"puede y debe"};
+  std::string str4 {"ser"};
+  std::string str5 {"un gran dia"};
 
   if (status == 0)
   {
@@ -66,18 +71,17 @@ int main()
     game.Draw( 8, 2, 0x2588,   PAIR_GREEN_BLACK );
     game.Draw( 9, 2, L'\u2665', PAIR_RED_BLACK );
 
-    game.InputString(2, 20, "Hola");
-    game.InputString(5, 21, "feliz");
-    game.InputString(2, 22, "Mundo");
-    game.InputString(7, 23, "Vivo");
-    game.InputString(2, 24, "Cruel");
+    game.InputString(2, 20,  5, str1);
+    game.InputString(5, 21, 19, str2);
+    game.InputString(2, 22, 11, str3);
+    game.InputString(7, 23,  6, str4);
+    game.InputString(2, 24,  3, str5);
     game.StartInput();
 
 
     game.Start();
 
-    std::cout << "End of game";
-      }
+   }
 
   return status;
 }

@@ -14,6 +14,21 @@
 
 ConsoleGameEngine::ConsoleGameEngine() {}
 
+ConsoleGameEngine::~ConsoleGameEngine() {
+
+  delete[] m_pBufferScreen;
+  endwin();
+
+  // delete each pointer in the list
+  for (auto it = m_input_list.begin(); it !=m_input_list.end(); it++) {
+    delete *it;
+  }
+  // clear the list
+  m_input_list.clear();
+  
+  std::cout << "End of game\n";
+}
+
 int ConsoleGameEngine::ConstructConsole(int x, int y, int width, int height,
                                         bool border, std::string label) {
     setlocale(LC_ALL, "");
@@ -23,7 +38,7 @@ int ConsoleGameEngine::ConstructConsole(int x, int y, int width, int height,
     int lnConsoleY = 0;
 
     console = initscr();
-    //noecho();
+    //oecho();
     curs_set(0);
     border(0, 0, 0, 0, 0, 0, 0, 0);
     getmaxyx(console, lnConsoleY, lnConsoleX);
@@ -90,24 +105,29 @@ void ConsoleGameEngine::Draw(int y, int x, wchar_t wc, int color) {
 
 void ConsoleGameEngine::StartInput() {
     m_it = m_input_list.begin();
-    for (auto const& it : m_input_list)
-        print_str("Cursor", it.x, it.y);
+
+    for (auto const& it : m_input_list){
+        it->str.append(it->len, ' ');
+        print_str(it->str, it->x, it->y, PAIR_GREEN_BLACK);
+
+    }
 
 }
 
 void ConsoleGameEngine::ControlInput() {    
-      if (m_it != m_input_list.end())  print_str("Cursor", m_it->x, m_it->y);
-      move(m_it->x, m_it->y);
+     std::list<InputNode*>::iterator  itEnd = --m_input_list.end();
+      if (m_it != m_input_list.end())  print_str((*m_it)->str, (*m_it)->x, (*m_it)->y);
+      move((*m_it)->x, (*m_it)->y);
       switch (m_nKeyPressed)
       {
         case 10:
-          if (m_it != m_input_list.end()) m_it++; 
+          if (m_it != itEnd) ++m_it; 
           break;
         case 9:
-          if (m_it != m_input_list.end()) m_it++; 
+          if (m_it != itEnd) ++m_it; 
           break;
         case KEY_DOWN:
-          if (m_it != m_input_list.end())  m_it++; 
+          if (m_it != itEnd)  ++m_it; 
           break;
         case KEY_UP:
           if (m_it != m_input_list.begin()) m_it--;
@@ -117,7 +137,7 @@ void ConsoleGameEngine::ControlInput() {
         case KEY_RIGHT:
           break;
       }
-      print_str("Cursor", m_it->x, m_it->y, PAIR_BLACK_WHITE);
+      if (m_it != m_input_list.end())  print_str((*m_it)->str, (*m_it)->x, (*m_it)->y, PAIR_BLACK_WHITE);
 }
 
 void ConsoleGameEngine::DisplayFrame() {
@@ -177,11 +197,12 @@ void ConsoleGameEngine::print_str(std::string str, int x, int y, int color) {
     }
 }
 
-void ConsoleGameEngine::InputString(int x, int y, std::string str, int color ) {
-    InputNode   in;
-    in.x = x;
-    in.y = y;
-    in.str = str;
+void ConsoleGameEngine::InputString(int x, int y, int len, std::string str, int color ) {
+    InputNode*   in = new InputNode();
+    in->x = x;
+    in->y = y;
+    in->len = len;
+    in->str = str;
     m_input_list.push_back(in);
 }
 
@@ -192,10 +213,6 @@ void ConsoleGameEngine::Start() {
     t.join();
 }
 
-ConsoleGameEngine::~ConsoleGameEngine() {
-    delete[] m_pBufferScreen;
-    endwin();
-}
 
 void ConsoleGameEngine::GameThread() {
     if (!OnUserCreate()) m_bAtomicActive = false;

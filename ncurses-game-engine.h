@@ -29,6 +29,7 @@ typedef struct _CHAR_INFO {
 struct InputNode {
     int         x;
     int         y;
+    int         len;
     std::string str;
 };
 
@@ -49,7 +50,7 @@ class ConsoleGameEngine
 
     void print_str(std::string, int x, int y, int color = PAIR_WHITE_BLACK);
 
-    void InputString(int x, int y, std::string, int color = PAIR_WHITE_BLACK);
+    void InputString(int x, int y, int len, std::string, int color = PAIR_WHITE_BLACK);
 
     void StartInput();
     void ControlInput();
@@ -69,8 +70,6 @@ class ConsoleGameEngine
     int           m_nScreenHeight;
     int           m_nKeyPressed;
 
-    std::list<InputNode>            m_input_list;
-    std::list<InputNode>::iterator  m_it;
 
     static std::atomic<bool>        m_bAtomicActive;
     static std::condition_variable  m_cvGameFinished;
@@ -80,6 +79,8 @@ class ConsoleGameEngine
     virtual bool OnUserUpdate(float fElapsedTime) = 0;
 
   private:
+    std::list<InputNode*>            m_input_list;
+    std::list<InputNode*>::iterator  m_it;
     void GameThread();
 };
 
