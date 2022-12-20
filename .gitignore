@@ -1,10 +1,14 @@
 # ignore obj, symbols, debuggewr memdumps (txt), dependency files
 *.o
 *.dSYM
-*.txt
 *.d
 doc
 .vscode
+.cache
+CMakeFiles
+*.cmake 
+CMakeCache.txt
+Makefile
 compile_commands.json
 game-demo
 ncurses-game-engine
